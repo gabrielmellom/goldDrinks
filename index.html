@@ -5,323 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulário de Evento</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
-      min-height: 100vh;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .form-container {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 600px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .form-header {
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      color: #1a1a1a;
-      padding: 40px 30px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .form-header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
-      background-size: 30px 30px;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-
-    .form-header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .form-header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      position: relative;
-      z-index: 1;
-    }
-
-    .form-content {
-      padding: 40px 30px;
-    }
-
-    .form-group {
-      margin-bottom: 28px;
-    }
-
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      color: #2d3748;
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 16px 20px;
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      background: #ffffff;
-      color: #2d3748;
-      outline: none;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #FFD700;
-      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-      transform: translateY(-2px);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-      font-family: inherit;
-    }
-
-    .drinks-section {
-      margin-bottom: 28px;
-    }
-
-    .drinks-section h3 {
-      font-weight: 600;
-      color: #2d3748;
-      margin-bottom: 20px;
-      font-size: 1rem;
-    }
-
-    .drinks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .drink-card {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 20px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .drink-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      border-color: #FFD700;
-    }
-
-    .drink-card.selected {
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      color: #1a1a1a;
-      border-color: #FFD700;
-      transform: translateY(-2px);
-    }
-
-    .drink-card.selected::before {
-      content: '✓';
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    .drink-card input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .drink-name {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .drink-desc {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      line-height: 1.4;
-    }
-
-    .drink-card.selected .drink-desc {
-      opacity: 0.9;
-    }
-
-    .submit-btn {
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      color: #1a1a1a;
-      padding: 18px 32px;
-      border: none;
-      border-radius: 16px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .submit-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .submit-btn:hover::before {
-      left: 100%;
-    }
-
-    .whatsapp-icon {
-      display: inline-block;
-      margin-right: 8px;
-      font-size: 1.2rem;
-    }
-
-    /* Responsivo */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-      
-      .form-header {
-        padding: 30px 20px;
-      }
-      
-      .form-header h1 {
-        font-size: 2rem;
-      }
-      
-      .form-content {
-        padding: 30px 20px;
-      }
-      
-      .drinks-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .drink-card {
-        padding: 16px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .form-header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .form-header p {
-        font-size: 1rem;
-      }
-      
-      .drink-name {
-        font-size: 1rem;
-      }
-      
-      .drink-desc {
-        font-size: 0.85rem;
-      }
-    }
-
-    /* Animações suaves */
-    .form-container {
-      animation: slideUp 0.6s ease-out;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Loading state */
-    .submit-btn.loading {
-      pointer-events: none;
-      opacity: 0.8;
-    }
-
-    .submit-btn.loading::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 20px;
-      height: 20px;
-      margin: -10px 0 0 -10px;
-      border: 2px solid transparent;
-      border-top: 2px solid #1a1a1a;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg,#FFD700,#FFA500,#FF8C00); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+    .form-container { background:rgba(255,255,255,0.95); backdrop-filter:blur(20px); border-radius:24px; box-shadow:0 20px 40px rgba(0,0,0,0.1); width:100%; max-width:600px; overflow:hidden; }
+    .form-header { background:linear-gradient(135deg,#FFD700,#FFA500); color:#1a1a1a; padding:30px; text-align:center; }
+    .form-header h1 { font-size:2rem; font-weight:700; }
+    .form-header p { font-size:1rem; opacity:0.9; }
+    .form-content { padding:30px; }
+    .form-group { margin-bottom:24px; }
+    .form-group label { display:block; font-weight:600; color:#2d3748; margin-bottom:8px; }
+    input, textarea, select { width:100%; padding:12px; border:2px solid #e2e8f0; border-radius:12px; font-size:1rem; outline:none; transition:0.3s; }
+    input:focus, textarea:focus, select:focus { border-color:#FFD700; box-shadow:0 0 0 3px rgba(255,215,0,0.2); }
+    textarea { resize:vertical; min-height:80px; }
+    .drinks-section { margin-bottom:24px; }
+    .drinks-section h3 { font-weight:600; color:#2d3748; margin-bottom:16px; }
+    .drinks-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+    .drink-card { background:#f8fafc; border:2px solid #e2e8f0; border-radius:16px; padding:16px; cursor:pointer; position:relative; }
+    .drink-card.selected { background:linear-gradient(135deg,#FFD700,#FFA500); border-color:#FFD700; }
+    .drink-card.selected::before { content:'✓'; position:absolute; top:12px; right:16px; font-size:1.2rem; font-weight:bold; }
+    .drink-card input[type="checkbox"] { display:none; }
+    .drink-name { font-weight:700; margin-bottom:8px; display:block; }
+    .drink-desc { font-size:0.9rem; color:#555; margin-bottom:8px; }
+    .fruit-select { margin-top:8px; }
+    .submit-btn { background:linear-gradient(135deg,#FFD700,#FFA500); color:#1a1a1a; padding:16px; border:none; border-radius:16px; font-size:1.1rem; font-weight:600; cursor:pointer; width:100%; position:relative; }
+    .submit-btn.loading { opacity:0.8; pointer-events:none; }
+    .submit-btn.loading::after { content:''; position:absolute; top:50%; left:50%; width:20px; height:20px; margin:-10px; border:2px solid transparent; border-top-color:#1a1a1a; border-radius:50%; animation:spin 1s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg);} }
+    @media(max-width:480px){ .drinks-grid{grid-template-columns:1fr;} }
   </style>
 </head>
 <body>
@@ -330,195 +40,158 @@
       <h1>🥇 Two of Gold Drinks</h1>
       <p>Solicite seu orçamento para eventos exclusivos</p>
     </div>
-    
     <div class="form-content">
       <form id="eventoForm">
         <div class="form-group">
           <label for="nome">Qual seu nome?</label>
-          <div class="input-wrapper">
-            <input type="text" id="nome" required placeholder="Digite seu nome completo">
-          </div>
+          <input type="text" id="nome" required placeholder="Digite seu nome completo">
         </div>
-
         <div class="form-group">
           <label for="cidade">Cidade e bairro?</label>
-          <div class="input-wrapper">
-            <input type="text" id="cidade" required placeholder="Ex: Florianópolis, Centro">
-          </div>
+          <input type="text" id="cidade" required placeholder="Ex: Florianópolis, Centro">
         </div>
-
         <div class="form-group">
           <label for="pessoas">Média de número de pessoas no evento?</label>
-          <div class="input-wrapper">
-            <input type="number" id="pessoas" required placeholder="Ex: 50" min="1">
+          <input type="number" id="pessoas" required placeholder="Ex: 50" min="1">
+        </div>
+        <div class="form-group">
+          <label for="data">Data do evento</label>
+          <input type="date" id="data" required>
+        </div>
+        <div class="form-group">
+          <label>Horário</label>
+          <div style="display:flex; gap:10px;">
+            <input type="time" id="horaInicio" required style="flex:1;">
+            <input type="time" id="horaFim" required style="flex:1;">
           </div>
         </div>
-
         <div class="drinks-section">
-          <h3>Selecione as bebidas que gostaria de servir.</h3>
+          <h3>Selecione as bebidas que gostaria de servir:</h3>
           <div class="drinks-grid">
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Caipirinha - Cachaça, fruta escolhida, açúcar">
+            <!-- Caipirinha -->
+            <div class="drink-card" data-fruits>
+              <input type="checkbox" value="Caipirinha">
               <span class="drink-name">🍹 Caipirinha</span>
-              <span class="drink-desc">Cachaça, fruta escolhida, açúcar</span>
+              <span class="drink-desc">Cachaça, fruta, açúcar</span>
+              <select class="fruit-select" style="display:none;">
+               <option value="Abacaxi">Abacaxi</option>
+                <option value="Morango">Morango</option>
+                <option value="limão">limão</option>
+                <option value="limão e morango">limão e morango</option>
+                <option value="Morango e abacaxi">Morango e abacaxi</option>
+              </select>
             </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Caipiroska - Vodka, fruta escolhida, açúcar">
+            <!-- Caipiroska -->
+            <div class="drink-card" data-fruits>
+              <input type="checkbox" value="Caipiroska">
               <span class="drink-name">🍸 Caipiroska</span>
-              <span class="drink-desc">Vodka, fruta escolhida, açúcar</span>
+              <span class="drink-desc">Vodka, fruta, açúcar</span>
+              <select class="fruit-select" style="display:none;">
+                <option value="Abacaxi">Abacaxi</option>
+                <option value="Morango">Morango</option>
+                <option value="limão">limão</option>
+                <option value="limão e morango">limão e morango</option>
+                <option value="Morango e abacaxi">Morango e abacaxi</option>
+              </select>
             </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Gin Tônica - Gin, tônica, limão siciliano">
-              <span class="drink-name">🍋 Gin Tônica</span>
-              <span class="drink-desc">Gin, tônica, limão siciliano</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Gin Tropical - Gin, energético tropical, frutas">
-              <span class="drink-name">🌺 Gin Tropical</span>
-              <span class="drink-desc">Gin, energético tropical, frutas</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Piña Colada - Batida de coco, leite condensado, suco de abacaxi, rum">
-              <span class="drink-name">🥥 Piña Colada</span>
-              <span class="drink-desc">Batida de coco, leite condensado, suco de abacaxi, rum</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Sex on the Beach - Vodka, suco de abacaxi, pêssego, laranja e groselha">
-              <span class="drink-name">🏖️ Sex on the Beach</span>
-              <span class="drink-desc">Vodka, suco de abacaxi, pêssego, laranja e groselha</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Frozen - Gelo, leite condensado, fruta escolhida, vodka">
-              <span class="drink-name">🧊 Frozen</span>
-              <span class="drink-desc">Gelo, leite condensado, fruta escolhida, vodka</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Mojito - Limão, hortelã, açúcar, rum e água com gás">
-              <span class="drink-name">🌿 Mojito</span>
-              <span class="drink-desc">Limão, hortelã, açúcar, rum e água com gás</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Aperol - Espumante, água com gás e laranja">
-              <span class="drink-name">🍊 Aperol</span>
-              <span class="drink-desc">Espumante, água com gás e laranja</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Tequila Sunrise - Suco de laranja, tequila e grenadine">
-              <span class="drink-name">🌅 Tequila Sunrise</span>
-              <span class="drink-desc">Suco de laranja, tequila e grenadine</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Negroni - Gin, Campari e Vermute russo">
-              <span class="drink-name">🍷 Negroni</span>
-              <span class="drink-desc">Gin, Campari e Vermute russo</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Fernet + Coca-Cola">
-              <span class="drink-name">🥤 Fernet + Coca-Cola</span>
-              <span class="drink-desc">Combinação clássica argentina</span>
-            </div>
-            
-            <div class="drink-card" onclick="toggleDrink(this)">
-              <input type="checkbox" value="Daiquiri - Gelo, fruta escolhida, leite condensado, rum">
+            <!-- Daiquiri -->
+            <div class="drink-card" data-fruits>
+              <input type="checkbox" value="Daiquiri">
               <span class="drink-name">🍓 Daiquiri</span>
-              <span class="drink-desc">Gelo, fruta escolhida, leite condensado, rum</span>
+              <span class="drink-desc">Gelo, fruta, leite condensado, rum</span>
+              <select class="fruit-select" style="display:none;">
+                 <option value="Abacaxi">Abacaxi</option>
+                <option value="Morango">Morango</option>
+                <option value="limão">limão</option>
+                <option value="limão e morango">limão e morango</option>
+                <option value="Morango e abacaxi">Morango e abacaxi</option>
+                <option value="Uva">Uva</option>
+              </select>
             </div>
+            <!-- Outros Drinks -->
+            <div class="drink-card"><input type="checkbox" value="Gin Tônica - Gin, tônica, limão siciliano"><span class="drink-name">🍋 Gin Tônica</span><span class="drink-desc">Gin, tônica, limão siciliano</span></div>
+            <div class="drink-card"><input type="checkbox" value="Gin Tropical - Gin, energético tropical, frutas"><span class="drink-name">🌺 Gin Tropical</span><span class="drink-desc">Gin, energético tropical, frutas</span></div>
+            <div class="drink-card"><input type="checkbox" value="Piña Colada - Batida de coco, leite condensado, suco de abacaxi, rum"><span class="drink-name">🥥 Piña Colada</span><span class="drink-desc">Batida de coco, leite condensado, suco de abacaxi, rum</span></div>
+            <div class="drink-card"><input type="checkbox" value="Sex on the Beach - Vodka, suco de abacaxi, pêssego, laranja e groselha"><span class="drink-name">🏖️ Sex on the Beach</span><span class="drink-desc">Vodka, suco de abacaxi, pêssego, laranja e groselha</span></div>
+            <div class="drink-card"><input type="checkbox" value="Frozen - Gelo, leite condensado, frutas, vodka"><span class="drink-name">🧊 Frozen</span><span class="drink-desc">Gelo, leite condensado, frutas, vodka</span></div>
+            <div class="drink-card"><input type="checkbox" value="Mojito - Limão, hortelã, açúcar, rum e água com gás"><span class="drink-name">🌿 Mojito</span><span class="drink-desc">Limão, hortelã, açúcar, rum e água com gás</span></div>
+            <div class="drink-card"><input type="checkbox" value="Aperol - Espumante, água com gás e laranja"><span class="drink-name">🍊 Aperol</span><span class="drink-desc">Espumante, água com gás e laranja</span></div>
+            <div class="drink-card"><input type="checkbox" value="Tequila Sunrise - Suco de laranja, tequila e grenadine"><span class="drink-name">🌅 Tequila Sunrise</span><span class="drink-desc">Suco de laranja, tequila e grenadine</span></div>
+            <div class="drink-card"><input type="checkbox" value="Negroni - Gin, Campari e Vermute russo"><span class="drink-name">🍷 Negroni</span><span class="drink-desc">Gin, Campari e Vermute russo</span></div>
+            <div class="drink-card"><input type="checkbox" value="Fernet + Coca-Cola"><span class="drink-name">🥤 Fernet + Coca-Cola</span><span class="drink-desc">Combinação clássica argentina</span></div>
           </div>
         </div>
-
         <div class="form-group">
           <label for="outros">Gostaria de algo que não está aqui?</label>
-          <textarea id="outros" placeholder="Alguma temática, algum drink diferente."></textarea>
+          <textarea id="outros" placeholder="Alguma temática, algum drink diferenciado..."></textarea>
         </div>
-
         <div class="form-group">
           <label for="telefone">Seu telefone (com DDD):</label>
-          <div class="input-wrapper">
-            <input type="tel" id="telefone" required placeholder="(48) 99999-9999">
-          </div>
+          <input type="tel" id="telefone" required placeholder="(48) 99999-9999">
         </div>
-
-        <button type="submit" class="submit-btn">
-          <span class="whatsapp-icon">📱</span>
-          Enviar via WhatsApp
-        </button>
+        <button type="submit" class="submit-btn">Enviar via WhatsApp</button>
       </form>
     </div>
   </div>
-
   <script>
-    function toggleDrink(card) {
-      const checkbox = card.querySelector('input[type="checkbox"]');
-      checkbox.checked = !checkbox.checked;
-      card.classList.toggle('selected', checkbox.checked);
-    }
-
-    // Formatação automática do telefone
-    document.getElementById('telefone').addEventListener('input', function(e) {
-      let value = e.target.value.replace(/\D/g, '');
-      if (value.length <= 11) {
-        value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
-        value = value.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
-        value = value.replace(/^(\d{2})(\d{1,5})$/, '($1) $2');
-        value = value.replace(/^(\d{2})$/, '($1');
-        e.target.value = value;
-      }
+    document.querySelectorAll('.drink-card').forEach(card => {
+      card.addEventListener('click', e => {
+        // if click on select, ignore
+        if (e.target.tagName === 'SELECT') return;
+        const cb = card.querySelector('input[type="checkbox"]');
+        cb.checked = !cb.checked;
+        card.classList.toggle('selected', cb.checked);
+        if (card.hasAttribute('data-fruits')) {
+          const select = card.querySelector('.fruit-select');
+          select.style.display = cb.checked ? 'block' : 'none';
+        }
+      });
     });
-
-    document.getElementById('eventoForm').addEventListener('submit', function(e) {
+    document.querySelectorAll('.fruit-select').forEach(s => {
+      s.addEventListener('click', e => e.stopPropagation());
+      s.addEventListener('mousedown', e => e.stopPropagation());
+    });
+    document.getElementById('telefone').addEventListener('input', e => {
+      let v = e.target.value.replace(/\D/g, '');
+      v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+      v = v.replace(/(\d)(\d{4})$/, '$1-$2');
+      e.target.value = v;
+    });
+    document.getElementById('eventoForm').addEventListener('submit', e => {
       e.preventDefault();
-
-      const submitBtn = e.target.querySelector('.submit-btn');
-      submitBtn.classList.add('loading');
-      submitBtn.textContent = 'Enviando...';
-
+      const btn = document.querySelector('.submit-btn'); btn.classList.add('loading');
       const nome = document.getElementById('nome').value;
       const cidade = document.getElementById('cidade').value;
       const pessoas = document.getElementById('pessoas').value;
+      const data = document.getElementById('data').value;
+      const inicio = document.getElementById('horaInicio').value;
+      const fim = document.getElementById('horaFim').value;
       const outros = document.getElementById('outros').value;
       const telefone = document.getElementById('telefone').value;
-
-      const checkboxes = document.querySelectorAll('.drink-card input:checked');
-      let bebidas = Array.from(checkboxes).map(cb => cb.value).join(', ');
-
-const mensagem =
-`*TWO OF GOLD DRINKS*\n\n` +
-`*Nome:* ${nome}\n` +
-`*Cidade/Bairro:* ${cidade}\n` +
-`*Média de pessoas:* ${pessoas}\n\n` +
-`*Bebidas escolhidas:*\n${bebidas ? bebidas.split(',').map(b => `- ${b.trim()}`).join('\n') : '- Nenhuma bebida selecionada'}\n\n` +
-`*Ideia personalizada:*\n${outros || '- Nenhuma'}\n\n` +
-`*Telefone:* ${telefone}`;
-
-
-
-
-      const numeroWhatsApp = "5548991377968";
-      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-      
-      setTimeout(() => {
-        window.open(url, '_blank');
-        submitBtn.classList.remove('loading');
-        submitBtn.innerHTML = '<span class="whatsapp-icon">📱</span> Enviar via WhatsApp';
-      }, 1000);
-    });
-
-    // Inicializar checkboxes
-    document.querySelectorAll('.drink-card input[type="checkbox"]').forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        this.closest('.drink-card').classList.toggle('selected', this.checked);
+      const cards = Array.from(document.querySelectorAll('.drink-card.selected'));
+      const bebidas = cards.map(card => {
+        const name = card.querySelector('.drink-name').textContent.replace(/^. /, '');
+        let desc = card.querySelector('.drink-desc').textContent;
+       if (card.hasAttribute('data-fruits')) {
+  const fruit = card.querySelector('.fruit-select').value;
+  // Substitui a palavra "fruta" pela selecionada
+  desc = desc.replace('fruta', fruit);
+}
+        return `${name} - ${desc}`;
       });
+      const mensagem =
+        `*TWO OF GOLD DRINKS*\n\n` +
+        `*Nome:* ${nome}\n` +
+        `*Cidade/Bairro:* ${cidade}\n` +
+        `*Pessoas:* ${pessoas}\n` +
+        `*Data:* ${data}\n` +
+        `*Horário:* ${inicio} - ${fim}\n\n` +
+        `*Bebidas:*
+` + (bebidas.length ? bebidas.map(b => `- ${b}`).join('\n') : '- Nenhuma selecionada') +
+        `\n\n*Ideia:* ${outros || '- Nenhuma'}\n` +
+        `*Telefone:* ${telefone}`;
+      const url = `https://wa.me/5555984644860?text=${encodeURIComponent(mensagem)}`;
+      setTimeout(() => window.open(url,'_blank'), 500);
     });
   </script>
 </body>
